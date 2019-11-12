@@ -308,7 +308,7 @@ class DMPLEntity {
 		if(isset($aFilters)){
 			$this->setFilters($aFilters);
 		}
-		
+
 		$fields = $this->getDriver()->get();
 
 		if($fields !== FALSE){

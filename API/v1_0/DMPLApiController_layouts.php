@@ -2,7 +2,7 @@
 /********************************************************************************
 ** @Company     : Damaplan                                                     **
 ** @System      : Iris - Gestor de Normativos		                           **
-** @Module		: API Cubes Controller - Classe para manipulação dos cubos.	   **
+** @Module		: API Layouts Controller - Classe para manipulação dos cubos.  **
 ** @Namespace	: Damaplan\Iris\API\v1_0									   **
 ** @Copyright	: Damaplan Consultoria LTDA (http://www.damaplan.com.br)       **
 ** @Link		: http://norman.damaplan.com.br/documentation                  **
@@ -17,7 +17,7 @@
 ** @Comment	 	:                                                              **
 ** --------------------------------------------------------------------------- **
 ** @Developer	: @pauloampj                                                   **
-** @Date	 	: 09/11/2019                                           	       **
+** @Date	 	: 11/11/2019                                           	       **
 ** @Version	 	: 1.0                                                 	       **
 ** @Comment	 	: Primeira versão.                                             **
 ********************************************************************************/
@@ -28,19 +28,19 @@ namespace Damaplan\Iris\API\v1_0;
 Use Damaplan\Iris\API\DMPLApiController;
 Use Damaplan\Iris\Core\Utils\DMPLErrors;
 Use Damaplan\Iris\Core\DB\DMPLEntityList;
-Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Cube;
+Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Layout;
 
-class DMPLApiController_cubes extends DMPLApiController {
+class DMPLApiController_layouts extends DMPLApiController {
 	
 	public function list(){
 		if(in_array($this->requestMethod(), array('GET'))){
 			$data = $this->requestData();
 			
 			if(isset($data)){
-				$cubesList = new DMPLEntityList('DMPLEntity_Mng_Cube');
-				$cubesList->load();
-				$cubes = $cubesList->get();
-				$this->getResponse()->setContent($cubes);
+				$layoutsList = new DMPLEntityList('DMPLEntity_Mng_Layout');
+				$layoutsList->load();
+				$layouts = $layoutsList->get();
+				$this->getResponse()->setContent($layouts);
 				
 				return true;
 			}else{
@@ -55,12 +55,12 @@ class DMPLApiController_cubes extends DMPLApiController {
 	public function view(){
 		if(in_array($this->requestMethod(), array('GET'))){
 			$data = $this->requestData();
-			
+
 			if(isset($data)){
-				$entity = new DMPLEntity_Mng_Cube ();
-				$entity->load(array ('Id' => $data['Id']));
-				$cube = $entity->serialize();
-				$this->getResponse()->setContent( $cube );
+				$entity = new DMPLEntity_Mng_Layout ();
+				$entity->load(array ('Key' => $data['Key']));
+				$layout = $entity->serialize();
+				$this->getResponse()->setContent( $layout );
 
 				return true;
 			}else{
