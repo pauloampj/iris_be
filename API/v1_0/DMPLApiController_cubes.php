@@ -72,4 +72,32 @@ class DMPLApiController_cubes extends DMPLApiController {
 		}
 	}
 	
+	public function getFields(){
+		if(in_array($this->requestMethod(), array('GET'))){
+			$data = $this->requestData();
+			
+			if(isset($data)){
+				//$cubesList = new DMPLEntityList('DMPLEntity_Mng_Cube');
+				//$cubesList->load();
+				//$cubes = $cubesList->get();
+				$cubes = [
+					['field' => 'CPF_CLIENTE', 'type' => 'text'],
+					['field' => 'NUMERO_CONTRATO', 'type' => 'int'],
+					['field' => 'VALOR_CONTRATO', 'type' => 'decimal'],
+					['field' => 'DATA_CONTRATO', 'type' => 'date'],
+					['field' => 'QTDE_PARCELAS', 'type' => 'int'],
+					['field' => 'VALOR_PARCELA', 'type' => 'decimal']
+				];
+				$this->getResponse()->setContent($cubes);
+				
+				return true;
+			}else{
+				$this->getResponse()->setContent(DMPLErrors::get('BAD_PARAMETERS'));
+				return false;
+			}
+		}else{
+			return $this->respondMethodNotAllowed();
+		}
+	}
+	
 }

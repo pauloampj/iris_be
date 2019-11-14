@@ -28,7 +28,7 @@ namespace Damaplan\Iris\API\v1_0;
 Use Damaplan\Iris\API\DMPLApiController;
 Use Damaplan\Iris\Core\Utils\DMPLErrors;
 Use Damaplan\Iris\Core\DB\DMPLEntityList;
-Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Process;
+Use Damaplan\Iris\Core\Entity\DMPLEntity_Cad_Process;
 
 class DMPLApiController_processes extends DMPLApiController {
 	
@@ -37,7 +37,7 @@ class DMPLApiController_processes extends DMPLApiController {
 			$data = $this->requestData();
 			
 			if(isset($data)){
-				$processesList = new DMPLEntityList('DMPLEntity_Mng_Process');
+				$processesList = new DMPLEntityList('DMPLEntity_Cad_Process');
 				$processesList->load();
 				$processes = $processesList->get();
 				$this->getResponse()->setContent($processes);
@@ -57,7 +57,7 @@ class DMPLApiController_processes extends DMPLApiController {
 			$data = $this->requestData();
 
 			if(isset($data)){
-				$entity = new DMPLEntity_Mng_Process ();
+				$entity = new DMPLEntity_Cad_Process ();
 				$entity->load(array ('Id' => $data['Id']));
 				$process = $entity->serialize();
 				$this->getResponse()->setContent( $process );

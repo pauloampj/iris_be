@@ -240,12 +240,12 @@ class DMPLApiController_users extends DMPLApiController {
 									
 							),array(
 									'id' => '6',
-									'name' => 'Processos',
-									'description' => 'Workflow de integração',
+									'name' => 'Operações',
+									'description' => 'Operação de integração',
 									'module_id'		=> '1',
-									'icon' => 'pli-shuffle',
+									'icon' => 'pli-data-stream',
 									'type_id' => 'MN_1',
-									'page_key' => 'PIRIS003T01',
+									'page_key' => 'PIRIS009T01',
 									'level'		=> '2',
 									'parent_id' => '1',
 									'path' => '1_6',
@@ -253,6 +253,19 @@ class DMPLApiController_users extends DMPLApiController {
 									
 							),array(
 									'id' => '7',
+									'name' => 'Processos',
+									'description' => 'Workflow de integração',
+									'module_id'		=> '1',
+									'icon' => 'pli-shuffle',
+									'type_id' => 'MN_1',
+									'page_key' => 'PIRIS003T01',
+									'level'		=> '2',
+									'parent_id' => '2',
+									'path' => '2_7',
+									'class' => 'dmpl-module-cad'
+									
+							),array(
+									'id' => '8',
 									'name' => 'Layouts',
 									'description' => 'Layouts de integração',
 									'module_id'		=> '2',
@@ -261,11 +274,11 @@ class DMPLApiController_users extends DMPLApiController {
 									'page_key' => 'PIRIS004T01',
 									'level'		=> '2',
 									'parent_id' => '2',
-									'path' => '2_7',
+									'path' => '2_8',
 									'class' => 'dmpl-module-cad'
 									
 							),array(
-									'id' => '8',
+									'id' => '9',
 									'name' => 'Tabelas',
 									'description' => 'Tabelas dinâmicas para carregamento das informações',
 									'module_id'		=> '2',
@@ -274,11 +287,11 @@ class DMPLApiController_users extends DMPLApiController {
 									'page_key' => 'PIRIS005T01',
 									'level'		=> '2',
 									'parent_id' => '2',
-									'path' => '2_8',
+									'path' => '2_9',
 									'class' => 'dmpl-module-cad'
 									
 							),array(
-									'id' => '9',
+									'id' => '10',
 									'name' => 'Pessoas',
 									'description' => 'Pessoas físicas ou jurídicas',
 									'module_id'		=> '3',
@@ -287,11 +300,11 @@ class DMPLApiController_users extends DMPLApiController {
 									'page_key' => 'PIRIS006T01',
 									'level'		=> '2',
 									'parent_id' => '2',
-									'path' => '2_9',
+									'path' => '2_10',
 									'class' => 'dmpl-module-cad'
 									
 							),array(
-									'id' => '10',
+									'id' => '11',
 									'name' => 'Variáveis de Ambiente',
 									'description' => 'Variáveis carregadas dinamicamente para os arquivos',
 									'module_id'		=> '3',
@@ -300,11 +313,11 @@ class DMPLApiController_users extends DMPLApiController {
 									'page_key' => 'PIRIS007T01',
 									'level'		=> '2',
 									'parent_id' => '3',
-									'path' => '3_10',
+									'path' => '3_11',
 									'class' => 'dmpl-module-nor'
 									
 							),array(
-									'id' => '11',
+									'id' => '12',
 									'name' => 'Parâmetros',
 									'description' => 'Parâmetros gerais do sistema',
 									'module_id'		=> '3',
@@ -313,7 +326,7 @@ class DMPLApiController_users extends DMPLApiController {
 									'page_key' => 'PIRIS008T01',
 									'level'		=> '2',
 									'parent_id' => '3',
-									'path' => '3_11',
+									'path' => '3_12',
 									'class' => 'dmpl-module-nor'
 							)
 							

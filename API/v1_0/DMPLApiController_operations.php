@@ -2,7 +2,7 @@
 /********************************************************************************
 ** @Company     : Damaplan                                                     **
 ** @System      : Iris - Gestor de Normativos		                           **
-** @Module		: API Batches Controller - Classe para manipulação dos cubos.  **
+** @Module		: API Operations Controller - Classe para manipulação das ops. **
 ** @Namespace	: Damaplan\Iris\API\v1_0									   **
 ** @Copyright	: Damaplan Consultoria LTDA (http://www.damaplan.com.br)       **
 ** @Link		: http://norman.damaplan.com.br/documentation                  **
@@ -17,7 +17,7 @@
 ** @Comment	 	:                                                              **
 ** --------------------------------------------------------------------------- **
 ** @Developer	: @pauloampj                                                   **
-** @Date	 	: 11/11/2019                                           	       **
+** @Date	 	: 13/11/2019                                           	       **
 ** @Version	 	: 1.0                                                 	       **
 ** @Comment	 	: Primeira versão.                                             **
 ********************************************************************************/
@@ -28,19 +28,19 @@ namespace Damaplan\Iris\API\v1_0;
 Use Damaplan\Iris\API\DMPLApiController;
 Use Damaplan\Iris\Core\Utils\DMPLErrors;
 Use Damaplan\Iris\Core\DB\DMPLEntityList;
-Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Batch;
+Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Operation;
 
-class DMPLApiController_batches extends DMPLApiController {
+class DMPLApiController_operations extends DMPLApiController {
 	
 	public function list(){
 		if(in_array($this->requestMethod(), array('GET'))){
 			$data = $this->requestData();
 			
 			if(isset($data)){
-				$batchesList = new DMPLEntityList('DMPLEntity_Mng_Batch');
-				$batchesList->load();
-				$batches = $batchesList->get();
-				$this->getResponse()->setContent($batches);
+				$operationsList = new DMPLEntityList('DMPLEntity_Mng_Operation');
+				$operationsList->load();
+				$operations = $operationsList->get();
+				$this->getResponse()->setContent($operations);
 				
 				return true;
 			}else{
@@ -57,10 +57,10 @@ class DMPLApiController_batches extends DMPLApiController {
 			$data = $this->requestData();
 
 			if(isset($data)){
-				$entity = new DMPLEntity_Mng_Batch ();
-				$entity->load(array ('Key' => $data['Key']));
-				$batch = $entity->serialize();
-				$this->getResponse()->setContent( $batch );
+				$entity = new DMPLEntity_Mng_Operation ();
+				$entity->load(array ('Id' => $data['Id']));
+				$operation = $entity->serialize();
+				$this->getResponse()->setContent( $operation );
 
 				return true;
 			}else{

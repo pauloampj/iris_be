@@ -27,14 +27,17 @@ namespace Damaplan\Iris\Core\Entity;
 
 Use Damaplan\Iris\Core\DB\DMPLEntity;
 
-class DMPLEntity_Mng_Process extends DMPLEntity {
+class DMPLEntity_Mng_Operation extends DMPLEntity {
 	
-	protected $_tableName = 'MNG_Processes';
+	protected $_tableName = 'MNG_Operations';
 	protected $_primaryKey = array('Id');
 	public $Id = null;
 	public $Name = null;
 	public $Description = null;
 	public $Key = null;
+	public $BatchKey= null;
+	public $ProcessId= null;
+	public $SituationId= null;
 	public $CreateDate = null;
 	public $EditDate = null;
 	
