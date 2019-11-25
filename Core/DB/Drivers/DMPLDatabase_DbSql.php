@@ -27,6 +27,7 @@ namespace Damaplan\Iris\Core\DB\Drivers;
 
 Use Medoo\Medoo;
 Use Damaplan\Iris\Core\Utils\DMPLUtils;
+Use Damaplan\Iris\Core\Utils\DMPLHash;
 Use Damaplan\Iris\Core\DB\DMPLEntity;
 Use Damaplan\Iris\Core\DB\DMPLConnectorsPool;
 Use Damaplan\Iris\Core\Utils\DMPLParams;
@@ -43,7 +44,7 @@ class DMPLDatabase_DbSql implements DMPLDatabaseInterface {
 	
 	private function _loadHandler(){
 		if(isset($this->_config)){
-			$password = (isset($this->_config['DB']['Params']['Password']) ? $this->_config['DB']['Params']['Password'] : DMPLUtils::decrypt($this->_config['DB']['Params']['PasswordHash']));
+			$password = (isset($this->_config['DB']['Params']['Password']) ? $this->_config['DB']['Params']['Password'] : DMPLHash::decrypt($this->_config['DB']['Params']['PasswordHash']));
 			$this->_dbHandlerHash = DMPLUtils::hashArray($this->_config['DB']['Params']);
 			DMPLConnectorsPool::setIfNotExists(new Medoo([
 					'database_type' => $this->_config['DB']['Params']['DBMS'],

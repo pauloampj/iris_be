@@ -51,7 +51,7 @@ DMPLParams::write ('ENTITY.DEFAULT_DB_PARAMS', array(
 		'Port' 			=> '3306',
 		'Database'		=> 'iris',
 		'User'			=> 'norman',
-		'PasswordHash'	=> 'Tm9ybWFOaDV3MTlNeCwuIUA=',
+		'PasswordHash'	=> '9ATWnLn6hg0jXkEKnvg/v5ZsFwa0SEl/jxT7LdsEy/S2XNfnLpGXfA9qx1BCMCwl2ZxE2y/8cmBR'
 ));
 DMPLParams::write ('CRAWLER_USER_ID', 1);
 DMPLParams::write ('DEBUG', true);

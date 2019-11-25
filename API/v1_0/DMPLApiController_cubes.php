@@ -27,10 +27,25 @@ namespace Damaplan\Iris\API\v1_0;
 
 Use Damaplan\Iris\API\DMPLApiController;
 Use Damaplan\Iris\Core\Utils\DMPLErrors;
+Use Damaplan\Iris\Core\Utils\DMPLHash;
+Use Damaplan\Iris\Core\Utils\DMPLUtils;
+Use Damaplan\Iris\Core\Utils\DMPLParams;
 Use Damaplan\Iris\Core\DB\DMPLEntityList;
 Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Cube;
 
 class DMPLApiController_cubes extends DMPLApiController {
+	
+	private function _getCubeByKey($aKey = null){
+		$entity = new DMPLEntity_Mng_Cube ();
+		$entity->load(array ('Key' => $aKey));
+		$cube = $entity->serialize();
+		
+		return $cube;
+	}
+	
+	private function _getWhereClause($aFilters = []){
+		
+	}
 	
 	public function list(){
 		if(in_array($this->requestMethod(), array('GET'))){
@@ -77,18 +92,33 @@ class DMPLApiController_cubes extends DMPLApiController {
 			$data = $this->requestData();
 			
 			if(isset($data)){
-				//$cubesList = new DMPLEntityList('DMPLEntity_Mng_Cube');
-				//$cubesList->load();
-				//$cubes = $cubesList->get();
-				$cubes = [
-					['field' => 'CPF_CLIENTE', 'type' => 'text'],
-					['field' => 'NUMERO_CONTRATO', 'type' => 'int'],
-					['field' => 'VALOR_CONTRATO', 'type' => 'decimal'],
-					['field' => 'DATA_CONTRATO', 'type' => 'date'],
-					['field' => 'QTDE_PARCELAS', 'type' => 'int'],
-					['field' => 'VALOR_PARCELA', 'type' => 'decimal']
-				];
-				$this->getResponse()->setContent($cubes);
+				$cube = $this->_getCubeByKey($data['Key']);
+				$fieldsList = new DMPLEntityList('DMPLEntity_Mng_CubesFilterField');
+				$fieldsList->load(array ('CubeId' => $cube['Id']));
+				$fields = $fieldsList->get();
+				$this->getResponse()->setContent(array_values($fields));
+				
+				return true;
+			}else{
+				$this->getResponse()->setContent(DMPLErrors::get('BAD_PARAMETERS'));
+				return false;
+			}
+		}else{
+			return $this->respondMethodNotAllowed();
+		}
+	}
+	
+	public function load(){
+		if(in_array($this->requestMethod(), array('GET'))){
+			$data = $this->requestData();
+			
+			if(isset($data)){
+				debug($data);
+				
+				$fieldsList = new DMPLEntityList('DMPLEntity_Mng_CubesFilterField');
+				$fieldsList->load(array ('CubeId' => $cube['Id']));
+				$fields = $fieldsList->get();
+				$this->getResponse()->setContent(array_values($fields));
 				
 				return true;
 			}else{

@@ -45,4 +45,42 @@ class DMPLHash {
 		}
 	}
 	
+	public static function encrypt(string $message, string $key): string {
+		if (mb_strlen($key, '8bit') !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES) {
+			die('Key is not the correct size (must be 32 bytes).');
+		}
+		$nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+		
+		$cipher = base64_encode(
+				$nonce.
+				sodium_crypto_secretbox(
+						$message,
+						$nonce,
+						$key
+						)
+				);
+		sodium_memzero($message);
+		sodium_memzero($key);
+		return $cipher;
+	}
+	
+
+	public static function decrypt(string $encrypted, string $key): string {
+		$decoded = base64_decode($encrypted);
+		$nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
+		$ciphertext = mb_substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+		
+		$plain = sodium_crypto_secretbox_open(
+				$ciphertext,
+				$nonce,
+				$key
+				);
+		if (!is_string($plain)) {
+			die('Invalid MAC');
+		}
+		sodium_memzero($ciphertext);
+		sodium_memzero($key);
+		return $plain;
+	}
+	
 }

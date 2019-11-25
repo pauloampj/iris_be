@@ -26,6 +26,8 @@
 namespace Damaplan\Iris\Core\Utils;
 
 Use Damaplan\Iris\Core\Utils\DMPLVariables;
+Use Damaplan\Iris\Core\Utils\DMPLParams;
+Use Damaplan\Iris\Core\Utils\DMPLHash;
 
 class DMPLUtils {
 	
@@ -126,16 +128,6 @@ class DMPLUtils {
 		}
 		
 		return date('Y-m-d H:i:s', $aTimestamp);
-	}
-	
-	public static function encrypt($aOriginalPlainText = ''){
-		$cipher = base64_encode($aOriginalPlainText);
-		return $cipher;
-	}
-	
-	public static function decrypt($aCipherText = ''){
-		$decoded = base64_decode($aCipherText);
-		return $decoded;
 	}
 	
 	public static function hashArray($aArray = array()){
