@@ -34,7 +34,9 @@ class DMPLEntity_Cad_DBServer extends DMPLEntity {
 	public $Id = null;
 	public $Name = null;
 	public $Description = null;
-	public $Address = null;
+	public $DBMS = null;
+	public $Database = null;
+	public $Host = null;
 	public $Port = null;
 	public $User = null;
 	public $Password = null;

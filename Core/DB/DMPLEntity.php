@@ -386,4 +386,13 @@ class DMPLEntity {
 		return $serial;
 	}
 	
+	public static function getInstance($aEntityClass = null, $aFilters = null){
+		$className = DMPLEntity::getClassName($aEntityClass);
+		$entity = new $className();
+		$entity->load($aFilters);
+		$instance = $entity->serialize();
+		
+		return $instance;
+	}
+	
 }

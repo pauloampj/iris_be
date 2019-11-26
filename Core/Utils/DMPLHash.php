@@ -45,10 +45,13 @@ class DMPLHash {
 		}
 	}
 	
-	public static function encrypt(string $message, string $key): string {
+	public static function encrypt(string $message, $aKey = null): string {
+		$key = isset($aKey) ? $aKey : DMPLParams::read ('SECURITY.SALT_KEY');
+		
 		if (mb_strlen($key, '8bit') !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES) {
 			die('Key is not the correct size (must be 32 bytes).');
 		}
+		
 		$nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 		
 		$cipher = base64_encode(
@@ -65,7 +68,8 @@ class DMPLHash {
 	}
 	
 
-	public static function decrypt(string $encrypted, string $key): string {
+	public static function decrypt(string $encrypted, $aKey = null): string {
+		$key = isset($aKey) ? $aKey : DMPLParams::read ('SECURITY.SALT_KEY');
 		$decoded = base64_decode($encrypted);
 		$nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
 		$ciphertext = mb_substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');

@@ -35,7 +35,9 @@ class DMPLEntity_Mng_Cube extends DMPLEntity {
 	public $Name = null;
 	public $Description = null;
 	public $Key = null;
+	public $GroupQuery = null;
 	public $Query = null;
+	public $DBServerId = null;
 	public $CreateDate = null;
 	public $EditDate = null;
 	

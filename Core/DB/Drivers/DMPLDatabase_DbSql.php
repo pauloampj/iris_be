@@ -26,6 +26,7 @@
 namespace Damaplan\Iris\Core\DB\Drivers;
 
 Use Medoo\Medoo;
+use PDO;
 Use Damaplan\Iris\Core\Utils\DMPLUtils;
 Use Damaplan\Iris\Core\Utils\DMPLHash;
 Use Damaplan\Iris\Core\DB\DMPLEntity;
@@ -347,6 +348,27 @@ class DMPLDatabase_DbSql implements DMPLDatabaseInterface {
 		}
 		
 		return $this->_select($this->_entity);
+	}
+	
+	public function selectQuery($aQuery = null){
+		if(isset($aQuery)){
+			$dbHandler = DMPLConnectorsPool::get($this->_dbHandlerHash);
+			if(isset($dbHandler)){
+				$query = $dbHandler->exec($aQuery);
+				
+				return $query->fetchAll(PDO::FETCH_ASSOC);
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
+	
+	public function error(){
+		$dbHandler = DMPLConnectorsPool::get($this->_dbHandlerHash);
+		
+		return $dbHandler->error();
 	}
 	
 }

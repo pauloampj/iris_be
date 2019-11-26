@@ -27,10 +27,10 @@ namespace Damaplan\Iris\API\v1_0;
 
 Use Damaplan\Iris\API\DMPLApiController;
 Use Damaplan\Iris\Core\Utils\DMPLErrors;
-Use Damaplan\Iris\Core\Utils\DMPLHash;
-Use Damaplan\Iris\Core\Utils\DMPLUtils;
-Use Damaplan\Iris\Core\Utils\DMPLParams;
+Use Damaplan\Iris\Core\DB\DMPLEntity;
 Use Damaplan\Iris\Core\DB\DMPLEntityList;
+Use Damaplan\Iris\Core\Utils\DMPLParams;
+Use Damaplan\Iris\Core\Utils\DMPLHash;
 Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Cube;
 
 class DMPLApiController_cubes extends DMPLApiController {
@@ -44,7 +44,13 @@ class DMPLApiController_cubes extends DMPLApiController {
 	}
 	
 	private function _getWhereClause($aFilters = []){
+		$where = '1 = 1';
+	}
+	
+	private function _formatWhereClause($aQuery = '', $aFilters = []){
+		$where = $this->_getWhereClause($aFilters);
 		
+		return str_replace('$WHERE_VAR', $where, $aQuery);
 	}
 	
 	public function list(){
@@ -109,16 +115,23 @@ class DMPLApiController_cubes extends DMPLApiController {
 	}
 	
 	public function load(){
+		error_reporting(-1);
+		ini_set('display_errors', 'On');
 		if(in_array($this->requestMethod(), array('GET'))){
 			$data = $this->requestData();
 			
 			if(isset($data)){
-				debug($data);
+				$cube = $this->_getCubeByKey($data['cube']);
+				$dbServer = DMPLEntity::getInstance('DMPLEntity_Cad_DBServer', array('Id' => $cube['DBServerId']));
 				
-				$fieldsList = new DMPLEntityList('DMPLEntity_Mng_CubesFilterField');
-				$fieldsList->load(array ('CubeId' => $cube['Id']));
-				$fields = $fieldsList->get();
-				$this->getResponse()->setContent(array_values($fields));
+				if(isset($dbServer['Password'])){
+					$dbServer['Password'] = DMPLHash::decrypt($dbServer['Password']);
+				}
+				
+				$className = DMPLParams::read ('DB_DRIVER_NAMESPACE') . '\\' . DMPLParams::read ('DATABASE_DRIVER_PREFIX') . '_DbSql';
+				$dbDriver = new $className($this, array('DB' => array('Params' => $dbServer)));
+				$items = $dbDriver->selectQuery($this->_formatWhereClause($cube['GroupQuery']));
+				$this->getResponse()->setContent($items, true);
 				
 				return true;
 			}else{

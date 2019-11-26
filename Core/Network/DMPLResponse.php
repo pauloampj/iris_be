@@ -26,12 +26,14 @@
 namespace Damaplan\Iris\Core\Network;
 
 Use Damaplan\Iris\Core\Utils\DMPLContent;
+Use Damaplan\Iris\Core\Utils\DMPLCompress;
 Use Damaplan\Iris\Core\Utils\Domains\DMPLContentTypes;
 
 class DMPLResponse {
 
 	private $_content = null;
 	private $_headers = array();
+	private $_compress = false;
 	
 	function __construct($aRawData = null, $aHeaders = null){
 		$this->init($aRawData, $aHeaders);
@@ -58,7 +60,7 @@ class DMPLResponse {
 			$aContent = $aContent();
 		}
 		
-		echo $aContent;
+		echo ($this->getCompress() ? DMPLCompress::zip($aContent) : $aContent);
 	}
 	
 	public function init($aRawData= null, $aHeaders = null){
@@ -70,7 +72,8 @@ class DMPLResponse {
 		return $this->_content;
 	}
 	
-	public function setContent($aRawData = null){
+	public function setContent($aRawData = null, $aCompress = false){
+		$this->setCompress ($aCompress);
 		$this->_content = new DMPLContent($aRawData, DMPLContentTypes::$JSON);
 	}
 	
@@ -80,6 +83,14 @@ class DMPLResponse {
 	
 	public function setHeaders($aHeaders = null){
 		$this->_headers = $aHeaders;
+	}
+	
+	public function getCompress(){
+		return $this->_compress;
+	}
+	
+	public function setCompress($aCompress= null){
+		$this->_compress = $aCompress;
 	}
 	
 	public function getHeader($aHeader = null){
