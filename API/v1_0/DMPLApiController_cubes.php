@@ -131,8 +131,19 @@ class DMPLApiController_cubes extends DMPLApiController {
 				$className = DMPLParams::read ('DB_DRIVER_NAMESPACE') . '\\' . DMPLParams::read ('DATABASE_DRIVER_PREFIX') . '_DbSql';
 				$dbDriver = new $className($this, array('DB' => array('Params' => $dbServer)));
 				$items = $dbDriver->selectQuery($this->_formatWhereClause($cube['GroupQuery']));
-				$this->getResponse()->setContent($items, true);
 				
+				$eFields = new DMPLEntityList('DMPLEntity_Mng_CubesTableField');
+				$eFields->load(array ('CubeId' => $cube['Id']));
+				$fields = array_values($eFields->get());
+				
+				$d = array(
+						'fields'	=> $fields,
+						'items'		=> $items 
+						
+				);
+				
+				$this->getResponse()->setContent($d);
+
 				return true;
 			}else{
 				$this->getResponse()->setContent(DMPLErrors::get('BAD_PARAMETERS'));

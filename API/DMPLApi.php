@@ -53,7 +53,8 @@ class DMPLApi {
 								'Access-Control-Allow-Origin' => $this->getRequest()->getOrigin(),
 								'Access-Control-Allow-Credentials' => 'true',
 								'Access-Control-Allow-Headers' => 'Origin, Authorization, x-requested-with'
-						)
+						),
+						$this->getRequest()
 						));
 				$this->setController(new $className($this->_request, $this->_response));
 			}else{

@@ -28,11 +28,13 @@ namespace Damaplan\Iris\Core\Utils;
 class DMPLCompress {
 	
 	public static function zip($aPlainText = ''){
-		return ("\x1f\x8b\x08\x00" . gzcompress($aPlainText, 9));
+		//return ("\x1f\x8b\x08\x00" . gzcompress($aPlainText, 9));
+		return (gzcompress($aPlainText, 9));
 	}
 	
 	public static function unzip($aZipText = ''){
-		return gzuncompress(substr($aZipText, 4));
+		//return gzuncompress(substr($aZipText, 4));
+		return gzuncompress($aZipText);
 	}
 	
 }

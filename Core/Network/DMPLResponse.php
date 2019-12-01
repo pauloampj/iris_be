@@ -34,9 +34,10 @@ class DMPLResponse {
 	private $_content = null;
 	private $_headers = array();
 	private $_compress = false;
+	private $_request = null;
 	
-	function __construct($aRawData = null, $aHeaders = null){
-		$this->init($aRawData, $aHeaders);
+	function __construct($aRawData = null, $aHeaders = null, $aRequest = null){
+		$this->init($aRawData, $aHeaders, $aRequest);
 	}
 	
 	private function _sendHeaders(){
@@ -60,21 +61,40 @@ class DMPLResponse {
 			$aContent = $aContent();
 		}
 		
-		echo ($this->getCompress() ? DMPLCompress::zip($aContent) : $aContent);
+		echo (/*$this->getCompress() ? DMPLCompress::zip($aContent) : */$aContent);
 	}
 	
-	public function init($aRawData= null, $aHeaders = null){
+	public function init($aRawData= null, $aHeaders = null, $aRequest = null){
 		$this->setContent($aRawData);
 		$this->setHeaders($aHeaders);
+		$this->setRequest($aRequest);
+		
+		if(isset($aRequest)){
+			$data = $aRequest->getData();
+			
+			if(isset($data['compress']) && ($data['compress'] == '1' || $data['compress'] == 'true' || $data['compress'] == 't')){
+				$this->setCompress(true);
+			}else{
+				$this->setCompress(false);
+			}
+			
+		}
 	}
 	
 	public function getContent(){
 		return $this->_content;
 	}
 	
-	public function setContent($aRawData = null, $aCompress = false){
-		$this->setCompress ($aCompress);
+	public function setContent($aRawData = null){
 		$this->_content = new DMPLContent($aRawData, DMPLContentTypes::$JSON);
+	}
+	
+	public function getRequest(){
+		return $this->_request;
+	}
+	
+	public function setRequest($aRequest = null){
+		$this->_request = $aRequest;
 	}
 	
 	public function getHeaders(){
@@ -89,7 +109,18 @@ class DMPLResponse {
 		return $this->_compress;
 	}
 	
-	public function setCompress($aCompress= null){
+	public function setCompress($aCompress= false){
+		if($aCompress == true){
+			//$this->_headers['Content-Type'] = 'text/javascript';
+			//$this->_headers['Content-Encoding'] = 'gzip';
+		}else{
+			if(isset($this->_headers['Content-Type'])){
+				//unset($this->_headers['Content-Type']);
+			}
+			if(isset($this->_headers['Content-Encoding'])){
+				//unset($this->_headers['Content-Encoding']);
+			}
+		}
 		$this->_compress = $aCompress;
 	}
 	
