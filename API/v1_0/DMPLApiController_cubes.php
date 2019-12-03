@@ -44,7 +44,9 @@ class DMPLApiController_cubes extends DMPLApiController {
 	}
 	
 	private function _getWhereClause($aFilters = []){
-		$where = '1 = 1';
+		$where = 'AND 1 = 1';
+		
+		return $where;
 	}
 	
 	private function _formatWhereClause($aQuery = '', $aFilters = []){
@@ -117,6 +119,7 @@ class DMPLApiController_cubes extends DMPLApiController {
 	public function load(){
 		error_reporting(-1);
 		ini_set('display_errors', 'On');
+
 		if(in_array($this->requestMethod(), array('GET'))){
 			$data = $this->requestData();
 			
@@ -138,6 +141,7 @@ class DMPLApiController_cubes extends DMPLApiController {
 				
 				$d = array(
 						'fields'	=> $fields,
+						'keyColumn'	=> $cube['KeyColumn'],
 						'items'		=> $items 
 						
 				);

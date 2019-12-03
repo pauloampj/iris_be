@@ -17,7 +17,7 @@
 ** @Comment		:                                                              **
 ** --------------------------------------------------------------------------- **
 ** @Developer	: @pauloampj                                                   **
-** @Date	 	: 04/07/2018                                           	       **
+** @Date	 	: 01/12/2019                                           	       **
 ** @Version	 	: 1.0                                                 	       **
 ** @Comment		: Primeira versão.                                             **
 ********************************************************************************/
@@ -27,20 +27,17 @@ namespace Damaplan\Iris\Core\Entity;
 
 Use Damaplan\Iris\Core\DB\DMPLEntity;
 
-class DMPLEntity_Mng_Cube extends DMPLEntity {
+class DMPLEntity_Cad_TableField extends DMPLEntity {
 	
-	protected $_tableName = 'MNG_Cubes';
+	protected $_tableName = 'CAD_TableFields';
 	protected $_primaryKey = array('Id');
 	public $Id = null;
 	public $Name = null;
 	public $Description = null;
-	public $Key = null;
-	public $KeyColumn = null;
-	public $GroupQuery = null;
-	public $RawQuery = null;
-	public $GroupTableKey = null;
-	public $RawTableKey = null;
-	public $DBServerId = null;
+	public $Field = null;
+	public $TableId = null;
+	public $Format = null;
+	public $Size = null;
 	public $CreateDate = null;
 	public $EditDate = null;
 	

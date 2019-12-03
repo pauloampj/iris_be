@@ -27,9 +27,9 @@ namespace Damaplan\Iris\Core\Entity;
 
 Use Damaplan\Iris\Core\DB\DMPLEntity;
 
-class DMPLEntity_Mng_Table extends DMPLEntity {
+class DMPLEntity_Cad_Table extends DMPLEntity {
 	
-	protected $_tableName = 'MNG_Tables';
+	protected $_tableName = 'CAD_Tables';
 	protected $_primaryKey = array('Id');
 	public $Id = null;
 	public $Name = null;

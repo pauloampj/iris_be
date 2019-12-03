@@ -28,7 +28,7 @@ namespace Damaplan\Iris\API\v1_0;
 Use Damaplan\Iris\API\DMPLApiController;
 Use Damaplan\Iris\Core\Utils\DMPLErrors;
 Use Damaplan\Iris\Core\DB\DMPLEntityList;
-Use Damaplan\Iris\Core\Entity\DMPLEntity_Mng_Table;
+Use Damaplan\Iris\Core\Entity\DMPLEntity_Cad_Table;
 
 class DMPLApiController_tables extends DMPLApiController {
 	
@@ -37,7 +37,7 @@ class DMPLApiController_tables extends DMPLApiController {
 			$data = $this->requestData();
 			
 			if(isset($data)){
-				$tablesList = new DMPLEntityList('DMPLEntity_Mng_Table');
+				$tablesList = new DMPLEntityList('DMPLEntity_Cad_Table');
 				$tablesList->load();
 				$tables = $tablesList->get();
 				$this->getResponse()->setContent($tables);
@@ -57,7 +57,7 @@ class DMPLApiController_tables extends DMPLApiController {
 			$data = $this->requestData();
 
 			if(isset($data)){
-				$entity = new DMPLEntity_Mng_Table ();
+				$entity = new DMPLEntity_Cad_Table ();
 				$entity->load(array ('Key' => $data['Key']));
 				$table = $entity->serialize();
 				$this->getResponse()->setContent( $table );
